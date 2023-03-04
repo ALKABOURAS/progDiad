@@ -12,8 +12,11 @@ def more(text):
                 break
 
 
-url = 'http://python.org/'  # προσδιορισμός του url
+url = input('Enter URL:')  # προσδιορισμός του url
 
 with requests.get(url) as response:  # το αντικείμενο response
     html = response.text
-    more(html)
+    # more(html)
+    print('Headers:\n', response.headers)
+    print('Server:\n' + response.headers['Server'])
+    print('Cookies:\n',response.cookies.get_dict())
