@@ -17,6 +17,12 @@ url = input('Enter URL:')  # προσδιορισμός του url
 with requests.get(url) as response:  # το αντικείμενο response
     html = response.text
     # more(html)
-    print('Headers:\n', response.headers)
-    print('Server:\n' + response.headers['Server'])
-    print('Cookies:\n',response.cookies.get_dict())
+    headers = response.headers
+    print('Headers:\n', headers)
+    print('Server:\n' + headers['Server'])
+    if "set-cookie" in headers.keys():
+        cookies = response.cookies
+        for cookie in cookies:
+            print(f"\nThe site uses cookie.\nName: {cookie.name}\nValue: {cookie.value}\nExpiration Date: {datetime.datetime.fromtimestamp(float(cookie.expires)) if cookie.expires is not None else 'Does Not Expire'}")        
+    else:
+        print('\nThe site does not use cookies')
